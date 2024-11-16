@@ -1,40 +1,46 @@
 #include <stdio.h>
 
-// Função para trocar dois elementos
-void trocar(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-// Função recursiva para gerar as permutações
-void permutar(int A[], int atual, int fim) {
-    // Se chegou ao fim, imprime a sequencia
-    if (atual == fim) {
-        for (int i = 0; i <= fim; i++) {
-            printf("%d ", A[i]);
+void gerar_permutacoes(int n, int k, int *seq, int *usado, int i) {
+    if (i == k) {
+        for (int j = 0; j < k; j++) {
+            printf("%d ", seq[j]);
         }
         printf("\n");
-    } else {
-        // Vamos percorrer o vetor
-        for (int i = atual; i <= fim; i++) {
-            // Primeiro fazemos uma troca
-            trocar(&A[atual], &A[i]);
-            // Testamos as outras permutações
-            permutar(A, atual + 1, fim);
-            // Por fim desfazemos a troca (backtracking)
-            trocar(&A[atual], &A[i]);
+        return;
+    }
+
+    for (int v = 1; v <= n; v++) {
+        if (!usado[v]) {
+            seq[i] = v;
+            usado[v] = 1;
+            gerar_permutacoes(n, k, seq, usado, i + 1);
+            usado[v] = 0;
         }
     }
 }
 
-// Função principal
 int main() {
-    int A[] = {1, 2, 3}; // Vetor de exemplo
-    int n = sizeof(A) / sizeof(A[0]); // Calcula o tamanho do vetor
+    int n, k;
+    printf("Digite o valor de n (quantidade de números): ");
+    scanf("%d", &n);
+    printf("Digite o valor de k (comprimento da permutação): ");
+    scanf("%d", &k);
 
-    printf("Permutacoes do vetor:\n");
-    permutar(A, 0, n - 1);
+    if (k > n || n <= 0 || k <= 0) {
+        printf("Valores inválidos! Certifique-se de que 0 < k <= n.\n");
+        return 1;
+    }
+    
+    // Declaração dos vetores
+    int seq[k];
+    int usado[n + 1];
+    // Inicializando o vetor usado
+    for (int i = 0; i <= n; i++) {
+        usado[i] = 0;
+    }
+
+    printf("Gerando permutações de %d números com comprimento %d:\n", n, k);
+    gerar_permutacoes(n, k, seq, usado, 0);
 
     return 0;
 }
