@@ -1,7 +1,12 @@
 #include <stdio.h>
-
-void gerar_permutacoes(int n, int k, int *seq, int *usado, int i) {
-    if (i == k) {
+// n = quantidade de numeros disponiveis
+// k = quantidade de digitos da permutação
+// seq = vetor com a permutação em construção
+// usado = vetor que guarda se um número foi usado na permutação
+// indice = indice atual dentro de seq
+void gerar_permutacoes(int n, int k, int *seq, int *usado, int indice) {
+    // Se a permutação está completa, imprime seq e retorna
+    if (indice == k) {
         for (int j = 0; j < k; j++) {
             printf("%d ", seq[j]);
         }
@@ -9,11 +14,17 @@ void gerar_permutacoes(int n, int k, int *seq, int *usado, int i) {
         return;
     }
 
+    // Esse loop tenta incluir cada número v, de 1 até n, na posição indice de seq
     for (int v = 1; v <= n; v++) {
+        // Se o número v não foi usado
         if (!usado[v]) {
-            seq[i] = v;
+            // Coloca o número v em seq[indice]
+            seq[indice] = v;
+            // Marca o numero v como usado
             usado[v] = 1;
-            gerar_permutacoes(n, k, seq, usado, i + 1);
+            // Chama recursivamente a função
+            gerar_permutacoes(n, k, seq, usado, indice + 1);
+            // Desfaz a marcação (backtracking)
             usado[v] = 0;
         }
     }
@@ -30,7 +41,7 @@ int main() {
         printf("Valores inválidos! Certifique-se de que 0 < k <= n.\n");
         return 1;
     }
-    
+
     // Declaração dos vetores
     int seq[k];
     int usado[n + 1];
