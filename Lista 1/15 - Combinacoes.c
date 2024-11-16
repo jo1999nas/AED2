@@ -1,10 +1,6 @@
 #include <stdio.h>
-// vetor = elementos disponiveis para formar a combinação
-// n = tamanho do vetor
-// k = tamanho das combinações
-// comb = vetor que armazena a combinação em construção
-// indice = indice atual dentro da combinação em construção
-// inicio = indice inicial do vetor para escolher o próximo elemento (evita repetições)
+
+// Função para gerar combinações
 void gerar_combinacoes(int *vetor, int n, int k, int *comb, int indice, int inicio) {
     // Se a combinação está completa, imprime e retorna
     if (indice == k) {
@@ -29,16 +25,21 @@ int main() {
     printf("Digite o tamanho do vetor (n): ");
     scanf("%d", &n);
 
+    if (n <= 0) {
+        printf("Valor inválido para n! Certifique-se de que n > 0.\n");
+        return 1;
+    }
+
     int vetor[n];
-    printf("Digite os %d elementos do vetor:\n", n);
+    // Preenche automaticamente o vetor com valores de 1 a n
     for (int i = 0; i < n; i++) {
-        scanf("%d", &vetor[i]);
+        vetor[i] = i + 1;
     }
 
     printf("Digite o valor de k (tamanho da combinação): ");
     scanf("%d", &k);
 
-    if (k > n || k <= 0 || n <= 0) {
+    if (k > n || k <= 0) {
         printf("Valores inválidos! Certifique-se de que 0 < k <= n.\n");
         return 1;
     }
