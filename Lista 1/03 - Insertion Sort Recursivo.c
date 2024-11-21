@@ -28,7 +28,7 @@ void insertionSortRecursivo(int vetor[N], int n){
     insertionSortRecursivo(vetor,n - 1);
 
     int aux = vetor[n - 1]; // Aux recebe o ultimo elemento do vetor
-    int j = n - 2;          // J recebe o penultimo elemento do vetor
+    int j = n - 2;          // J recebe o index do penultimo elemento do vetor
 
     // Movimentamos os elementos para a direita para abrir espaço
     while(j >= 0 && vetor[j] > aux){    // Enquanto houverem elementos a esquerda e esse elemento for maior que aux
