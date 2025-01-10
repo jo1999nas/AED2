@@ -1,12 +1,9 @@
 def lps(s, i, j):
     memo = {}
 
-    if i > j:
-        return 0
-    if i == j:
-        return 1
-    if (i, j) in memo:
-        return memo[(i, j)]
+    if i > j: return 0
+    if i == j: return 1
+    if (i, j) in memo: return memo[(i, j)]
             
     if s[i] == s[j]:
         memo[(i, j)] = 2 + lps(s, i + 1, j - 1)
